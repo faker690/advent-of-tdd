@@ -1,5 +1,5 @@
 namespace myapp;
-public class Day1201 : DayPuzzleBase
+public class Day1201 : PuzzleBase
 {
     public Day1201()
     {

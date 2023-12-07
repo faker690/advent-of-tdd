@@ -1,5 +1,5 @@
 namespace myapp;
-public class Day1202 : DayPuzzleBase
+public class Day1202 : PuzzleBase
 {
     public Day1202()
     {
@@ -39,9 +39,7 @@ public class Day1202 : DayPuzzleBase
                 }
                 gameInfo.Games.Add(game);
             }
-
-            if (gameInfo.Games.All(x => x.IsValid))
-                results.Add(gameInfo);
+            results.Add(gameInfo);
         }
 
         return results;
@@ -50,8 +48,26 @@ public class Day1202 : DayPuzzleBase
     public override string GetResult(int PuzzleOrder)
     {
         var results = execute();
+        if (PuzzleOrder == 1)
+            return results.Where(x => x.Games.All(y => y.IsValid)).Select(x => x.Index).Distinct().Sum(x => x).ToString();
 
-        return results.Select(x => x.Index).Distinct().Sum(x => x).ToString();
+        if (PuzzleOrder == 2)
+        {
+            var total = 0;
+            results.ForEach(x =>
+            {
+                var maxRed = x.Games.Max(y => y.RedCube);
+                var maxGreen = x.Games.Max(y => y.GreenCube);
+                var maxBlue = x.Games.Max(y => y.BlueCube);
+
+                var gameSum = Math.Max(1, maxRed) * Math.Max(1, maxGreen) * Math.Max(1, maxBlue);
+                total += gameSum;
+            });
+
+            return total.ToString();
+        }
+
+        return "Invalid";
     }
 }
 
