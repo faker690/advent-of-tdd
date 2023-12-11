@@ -9,7 +9,7 @@ public class Day1211 : PuzzleBase
     private int _rows;
     private int _columns;
 
-    public override string GetResult(int order)
+    public override string ExecutePartOne()
     {
         _rows = InputLines.Length;
         _columns = InputLines[0].Length;
@@ -71,7 +71,7 @@ public class Day1211 : PuzzleBase
         return Math.Abs(second.Row - first.Row) + Math.Abs(second.Column - first.Column);
     }
 
-    public string GetResult2(int order)
+    public override string ExecutePartTwo()
     {
         _rows = InputLines.Length;
         _columns = InputLines[0].Length;
@@ -103,7 +103,7 @@ public class Day1211 : PuzzleBase
             var rowCount = list.Where(x => x.Column == i).Count();
             if (rowCount == 0)
             {
-                list.Where(x => x.Column > i).ToList().ForEach(x => x.Column += times -1);
+                list.Where(x => x.Column > i).ToList().ForEach(x => x.Column += times - 1);
             }
         }
 
@@ -113,7 +113,7 @@ public class Day1211 : PuzzleBase
             var colCount = list.Where(x => x.Row == i).Count();
             if (colCount == 0)
             {
-                list.Where(x => x.Row > i).ToList().ForEach(x => x.Row += times -1);
+                list.Where(x => x.Row > i).ToList().ForEach(x => x.Row += times - 1);
             }
         }
 

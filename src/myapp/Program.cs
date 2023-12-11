@@ -1,13 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
-using myapp;
-
+﻿
 Console.WriteLine("Hello, World!");
 
-var day = new Day1210();
-// var result = day.GetResult(2);
+var day = new Day1208();
+var result1 = day.ExecutePartOne();
+Console.WriteLine($"Part1: {result1}");
 
-// Console.WriteLine(result);
+var result2 = day.ExecutePartTwo();
+Console.WriteLine($"Part2: {result2}");
 
-var result2 = day.GetResult2(2);
-
-Console.WriteLine(result2);

@@ -11,7 +11,7 @@ public class Day1210 : PuzzleBase
     private int _circleCount = 0;
     private Dictionary<int, List<SignInfo>> _circleDic = new Dictionary<int, List<SignInfo>>();
 
-    public override string GetResult(int order)
+    public override string ExecutePartOne()
     {
         // get data inputs
         var data = new List<SignInfo>();
@@ -45,7 +45,7 @@ public class Day1210 : PuzzleBase
         return data.Max(x => x.Distance).ToString();
     }
 
-    public string GetResult2(int order)
+    public override string ExecutePartTwo()
     {
         // get data inputs
         var data = new List<SignInfo>();
@@ -77,7 +77,8 @@ public class Day1210 : PuzzleBase
         breadFirstSearch(data, startSignInfo);
 
         var circleInfos = data.Where(x => x.IsCircleStart()).ToList();
-        foreach(var info in circleInfos){
+        foreach (var info in circleInfos)
+        {
             var list = new List<SignInfo>();
             findCircleInfos(info, list);
         }
@@ -95,7 +96,8 @@ public class Day1210 : PuzzleBase
 
         foreach (var item in info.Neighbors)
         {
-            if(results.Any(x=>x.Row == item.Row && x.Column == item.Column)) {
+            if (results.Any(x => x.Row == item.Row && x.Column == item.Column))
+            {
                 _circleDic[++_circleCount] = results;
                 results = new List<SignInfo>();
                 break;

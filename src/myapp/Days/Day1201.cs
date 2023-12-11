@@ -1,4 +1,4 @@
-namespace myapp;
+namespace myapp.Days;
 public class Day1201 : PuzzleBase
 {
     public Day1201()
@@ -6,7 +6,6 @@ public class Day1201 : PuzzleBase
         Date = new DateOnly(2023, 12, 1);
         init();
     }
-
 
     private int GetLineFirstNumber(char[] lineChars)
     {
@@ -21,25 +20,6 @@ public class Day1201 : PuzzleBase
             }
         }
         return number;
-    }
-
-    public int Summary1()
-    {
-        var sum = 0;
-        foreach (var line in InputLines)
-        {
-            var firstNumber = GetLineFirstNumber(line.ToArray());
-            var lastNumber = GetLineFirstNumber(line.Reverse().ToArray());
-
-            sum += firstNumber * 10 + lastNumber;
-        }
-
-        return sum;
-    }
-
-    public override string GetResult(int PuzzleOrder)
-    {
-        return PuzzleOrder == 1 ? Summary1().ToString() : Summary2().ToString();
     }
 
     private static Dictionary<int, string> Numbers = new Dictionary<int, string>();
@@ -111,7 +91,21 @@ public class Day1201 : PuzzleBase
         return Numbers.Single(x => x.Value == charNumber).Key;
     }
 
-    public int Summary2()
+    public override string ExecutePartOne()
+    {
+        var sum = 0;
+        foreach (var line in InputLines)
+        {
+            var firstNumber = GetLineFirstNumber(line.ToArray());
+            var lastNumber = GetLineFirstNumber(line.Reverse().ToArray());
+
+            sum += firstNumber * 10 + lastNumber;
+        }
+
+        return sum.ToString();
+    }
+
+    public override string ExecutePartTwo()
     {
         var sum = 0;
         foreach (var line in InputLines)
@@ -122,6 +116,6 @@ public class Day1201 : PuzzleBase
             sum += firstNumber * 10 + lastNumber;
         }
 
-        return sum;
+        return sum.ToString();
     }
 }
