@@ -76,35 +76,34 @@ public class Day1210 : PuzzleBase
 
         breadFirstSearch(data, startSignInfo);
 
-        var circleInfos = data.Where(x => x.IsCircleStart()).ToList();
-        foreach (var info in circleInfos)
-        {
-            var list = new List<SignInfo>();
-            findCircleInfos(info, list);
-        }
+
 
         return data.Max(x => x.Distance).ToString();
     }
 
-    private void findCircleInfos(SignInfo info, List<SignInfo> results)
+    private void deepFirstSearch(List<SignInfo> data, SignInfo start)
     {
-        if (info.Neighbors.Count < 2)
-        {
-            results.Clear();
-            return;
-        }
+        var stack = new Stack<SignInfo>();
+        var set = new HashSet<SignInfo>();
 
-        foreach (var item in info.Neighbors)
+        stack.Push(start);
+        while (stack.Count > 0)
         {
-            if (results.Any(x => x.Row == item.Row && x.Column == item.Column))
+            var head = stack.Peek();
+
+            // 此处输出为先序遍历
+            if (!head.IsVisited)
+                head.IsVisited = true;
+
+            var neighbors = findNeighbors(data, head);
+            foreach (var itm in neighbors)
             {
-                _circleDic[++_circleCount] = results;
-                results = new List<SignInfo>();
-                break;
+                if (!itm.IsVisited) itm.IsVisited = true;
+                stack.Push(itm);
+                continue;
             }
 
-            results.Add(item);
-            findCircleInfos(item, results);
+            stack.Pop();
         }
     }
 
@@ -142,7 +141,6 @@ public class Day1210 : PuzzleBase
         {
             if (topSignInfo.Start == DirectInfo.South || topSignInfo.End == DirectInfo.South)
             {
-                signInfo.Neighbors.Add(topSignInfo);
                 if (topSignInfo.Distance == -1)
                 {
                     topSignInfo.Distance = signInfo.Distance + 1;
@@ -156,7 +154,6 @@ public class Day1210 : PuzzleBase
         {
             if (btmSignInfo.Start == DirectInfo.North || btmSignInfo.End == DirectInfo.North)
             {
-                signInfo.Neighbors.Add(btmSignInfo);
                 if (btmSignInfo.Distance == -1)
                 {
                     btmSignInfo.Distance = signInfo.Distance + 1;
@@ -170,7 +167,6 @@ public class Day1210 : PuzzleBase
         {
             if (leftSignInfo.Start == DirectInfo.East || leftSignInfo.End == DirectInfo.East)
             {
-                signInfo.Neighbors.Add(leftSignInfo);
                 if (leftSignInfo.Distance == -1)
                 {
                     leftSignInfo.Distance = signInfo.Distance + 1;
@@ -184,7 +180,6 @@ public class Day1210 : PuzzleBase
         {
             if (rightSignInfo.Start == DirectInfo.West || rightSignInfo.End == DirectInfo.West)
             {
-                signInfo.Neighbors.Add(rightSignInfo);
                 if (rightSignInfo.Distance == -1)
                 {
                     rightSignInfo.Distance = signInfo.Distance + 1;
@@ -215,8 +210,6 @@ public class Day1210 : PuzzleBase
 
 public class SignInfo
 {
-    public SignInfo() => Neighbors = new List<SignInfo>();
-
     public char Sign { get; set; }
     public DirectInfo Start { get; set; }
     public DirectInfo End { get; set; }
@@ -225,15 +218,7 @@ public class SignInfo
     public int Column { get; set; }
     public int Distance { get; set; } = -1;
 
-    public List<SignInfo> Neighbors { get; init; }
-
-    public bool IsCircleStart()
-    {
-        if (Neighbors.Count <= 1) return false;
-
-        var diffDistance = Neighbors.Max(x => x.Distance) - Neighbors.Min(x => x.Distance);
-        return diffDistance > 2;
-    }
+    public bool IsVisited { get; set; }
 }
 
 public enum DirectInfo
