@@ -80,7 +80,7 @@ public class Day1208 : PuzzleBase
         }
 
         var isSuccess = false;
-        var totalSteps = 0;
+        long totalSteps = 0;
         var currentNodes = nodeInfos.Where(x => x.Name[2] == 'A').ToList();
         while (!isSuccess)
         {
