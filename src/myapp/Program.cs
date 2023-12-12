@@ -1,7 +1,7 @@
 ﻿
 Console.WriteLine("Hello, World!");
 
-var day = new Day1208();
+var day = new Day1210();
 var result1 = day.ExecutePartOne();
 Console.WriteLine($"Part1: {result1}");
 
