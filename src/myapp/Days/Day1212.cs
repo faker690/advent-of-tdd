@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using System.Security.Cryptography;
-
 namespace myapp;
 public class Day1212 : PuzzleBase
 {
@@ -67,11 +64,9 @@ public class Day1212 : PuzzleBase
                 var items = itm.Split('.', StringSplitOptions.RemoveEmptyEntries);
                 if (items.Length != info.GroupInfos.Count) continue;
 
-                for (int i = 0; i < info.GroupInfos.Count; i++)
-                {
-                    var count = items[i].ToString().Length;
-                    if (count == info.GroupInfos[i].Count) info.Arranges++;
-                }
+                var isValid = info.GroupInfos.All(x => items[x.Index].ToString().Length == x.Count);
+                if (isValid)
+                    info.Arranges++;
             }
         }
 
@@ -80,7 +75,71 @@ public class Day1212 : PuzzleBase
 
     public override string ExecutePartTwo()
     {
-        return "";
+        var infos = new List<SpringInfo>();
+        foreach (var line in InputLines)
+        {
+            if (string.IsNullOrWhiteSpace(line)) continue;
+            var items = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var info = new SpringInfo { Record = items[0], GroupRecord = items[1] };
+
+            info.Record = string.Join("?", Enumerable.Repeat(info.Record, 5));
+            for (int i = 0; i < info.Record.Length; i++)
+            {
+                info.Springs.Add(new Spring
+                {
+                    Index = i,
+                    Sign = info.Record[i]
+                });
+            }
+
+            info.GroupRecord = string.Join(",", Enumerable.Repeat(info.GroupRecord, 5));
+            var itms = info.GroupRecord.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < itms.Length; i++)
+            {
+                info.GroupInfos.Add(new GroupInfo
+                {
+                    Index = i,
+                    Count = int.Parse(itms[i])
+                });
+            }
+
+            infos.Add(info);
+        }
+
+        foreach (var info in infos)
+        {
+            var lists = new List<string> { "" };
+            for (int i = 0; i < info.Springs.Count; i++)
+            {
+                var itm = info.Springs[i];
+                var count = lists.Count;
+                for (int j = 0; j < count; j++)
+                {
+                    var original = lists[j];
+                    if (itm.Status != SpringStatus.Unknown)
+                    {
+                        lists[j] = $"{original}{itm.Sign}";
+                        continue;
+                    }
+
+                    var clone = lists[j].Substring(0);
+                    lists[j] = $"{original}.";
+                    lists.Add($"{clone}#");
+                }
+            }
+
+            foreach (var itm in lists)
+            {
+                var items = itm.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                if (items.Length != info.GroupInfos.Count) continue;
+
+                var isValid = info.GroupInfos.All(x => items[x.Index].ToString().Length == x.Count);
+                if (isValid)
+                    info.Arranges++;
+            }
+        }
+
+        return infos.Sum(x => x.Arranges).ToString();
     }
 }
 
