@@ -11,7 +11,7 @@ public class Day1210 : PuzzleBase
     private int _circleCount = 0;
     private Dictionary<int, List<SignInfo>> _circleDic = new Dictionary<int, List<SignInfo>>();
 
-    public override string ExecutePartOne()
+    public override string PartOne()
     {
         // get data inputs
         var data = new List<SignInfo>();
@@ -45,7 +45,7 @@ public class Day1210 : PuzzleBase
         return data.Max(x => x.Distance).ToString();
     }
 
-    public override string ExecutePartTwo()
+    public override string PartTwo()
     {
         // get data inputs
         var data = new List<SignInfo>();

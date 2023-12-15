@@ -6,7 +6,7 @@ public class Day1206 : PuzzleBase
         Date = new DateOnly(2023, 12, 6);
     }
 
-    public override string ExecutePartOne()
+    public override string PartOne()
     {
         var times = InputLines[0].Split(" ", StringSplitOptions.RemoveEmptyEntries);
         var distances = InputLines[1].Split(" ", StringSplitOptions.RemoveEmptyEntries);
@@ -38,7 +38,7 @@ public class Day1206 : PuzzleBase
         return result.ToString();
     }
 
-    public override string ExecutePartTwo()
+    public override string PartTwo()
     {
         var time = InputLines[0].Split(":", StringSplitOptions.RemoveEmptyEntries)[1].Replace(" ", "");
         var distance = InputLines[1].Split(":", StringSplitOptions.RemoveEmptyEntries)[1].Replace(" ", "");

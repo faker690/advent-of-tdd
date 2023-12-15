@@ -9,7 +9,7 @@ public class Day1211 : PuzzleBase
     private int _rows;
     private int _columns;
 
-    public override string ExecutePartOne()
+    public override string PartOne()
     {
         _rows = InputLines.Length;
         _columns = InputLines[0].Length;
@@ -71,7 +71,7 @@ public class Day1211 : PuzzleBase
         return Math.Abs(second.Row - first.Row) + Math.Abs(second.Column - first.Column);
     }
 
-    public override string ExecutePartTwo()
+    public override string PartTwo()
     {
         _rows = InputLines.Length;
         _columns = InputLines[0].Length;

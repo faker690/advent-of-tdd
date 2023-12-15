@@ -7,7 +7,7 @@ public class Day1204 : PuzzleBase
         Date = new DateOnly(2023, 12, 4);
     }
 
-    public override string ExecutePartOne()
+    public override string PartOne()
     {
         var sum = 0;
         foreach (var line in InputLines)
@@ -20,7 +20,7 @@ public class Day1204 : PuzzleBase
         return sum.ToString();
     }
 
-    public override string ExecutePartTwo()
+    public override string PartTwo()
     {
         var infos = InputLines.Select(getCardInfo).OrderBy(x => x.CardIndex).ToList();
         for (int i = 0; i < infos.Count; i++)

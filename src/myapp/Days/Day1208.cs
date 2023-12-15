@@ -6,7 +6,7 @@ public class Day1208 : PuzzleBase
         Date = new DateOnly(2023, 12, 8);
     }
 
-    public override string ExecutePartOne()
+    public override string PartOne()
     {
         var commands = InputLines[0];
         var nodeInfos = new List<NodeInfo>();
@@ -60,10 +60,11 @@ public class Day1208 : PuzzleBase
         return nodeInfos.Sum(x => x.Count).ToString();
     }
 
-    public override string ExecutePartTwo()
+    // not complete
+    public override string PartTwo()
     {
         var commands = InputLines[0];
-        var nodeInfos = new List<NodeInfo>();
+        var nodeDic = new Dictionary<string, NodeInfo>();
         for (int i = 0; i < InputLines.Length; i++)
         {
             var items = InputLines[i].Split("=");
@@ -76,38 +77,33 @@ public class Day1208 : PuzzleBase
                 Left = leftRight.Split(",")[0].Trim(),
                 Right = leftRight.Split(",")[1].Trim(),
             };
-            nodeInfos.Add(node);
+            nodeDic[node.Name] = node;
         }
 
         var isSuccess = false;
         long totalSteps = 0;
-        var currentNodes = nodeInfos.Where(x => x.Name[2] == 'A').ToList();
+        var nodeNames = nodeDic.Keys.Where(x => x[2] == 'A').ToList();
+        var currentNodes = nodeNames.Select(x => nodeDic[x]).ToList();
         while (!isSuccess)
         {
             foreach (var command in commands)
             {
                 totalSteps++;
 
-                if (command == 'R')
+                nodeNames = command switch
                 {
-                    if (currentNodes.All(x => x.Right[2] == 'Z'))
-                    {
-                        isSuccess = true;
-                        break;
-                    }
+                    'R' => currentNodes.Select(x => x.Right).ToList(),
+                    'L' => currentNodes.Select(x => x.Left).ToList(),
+                    _ => throw new Exception()
+                };
 
-                    currentNodes = nodeInfos.Where(x => currentNodes.Any(y => y.Right == x.Name)).ToList();
-                }
-                else if (command == 'L')
+                if (nodeNames.Any(x => x[2] != 'Z'))
                 {
-                    if (currentNodes.All(x => x.Left[2] == 'Z'))
-                    {
-                        isSuccess = true;
-                        break;
-                    }
-                    currentNodes = nodeInfos.Where(x => currentNodes.Any(y => y.Left == x.Name)).ToList();
+                    currentNodes = nodeNames.Select(x => nodeDic[x]).ToList();
+                    continue;
                 }
-                else throw new Exception();
+                isSuccess = true;
+                break;
             }
         }
 

@@ -9,8 +9,8 @@ public abstract class PuzzleBase
 
     public string[] InputLines => Helper.GetInputLines(Date.Day);
 
-    public abstract string ExecutePartOne();
+    public abstract string PartOne();
 
-    public abstract string ExecutePartTwo();
+    public abstract string PartTwo();
 
 }

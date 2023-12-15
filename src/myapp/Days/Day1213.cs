@@ -6,7 +6,7 @@ public class Day1213 : PuzzleBase
         Date = new DateOnly(2023, 12, 13);
     }
 
-    public override string ExecutePartOne()
+    public override string PartOne()
     {
         var infos = new List<PatternInfo>();
         PatternInfo info = new PatternInfo();
@@ -30,7 +30,7 @@ public class Day1213 : PuzzleBase
         return infos.Sum(x => x.Summary).ToString();
     }
 
-    public override string ExecutePartTwo()
+    public override string PartTwo()
     {
 
         var infos = new List<PatternInfo>();

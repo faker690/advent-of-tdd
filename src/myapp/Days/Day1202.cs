@@ -45,12 +45,12 @@ public class Day1202 : PuzzleBase
         return results;
     }
 
-    public override string ExecutePartOne()
+    public override string PartOne()
     {
         return execute().Where(x => x.Games.All(y => y.IsValid)).Select(x => x.Index).Distinct().Sum(x => x).ToString();
     }
 
-    public override string ExecutePartTwo()
+    public override string PartTwo()
     {
         var total = 0;
         execute().ForEach(x =>

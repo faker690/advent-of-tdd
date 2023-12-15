@@ -91,7 +91,7 @@ public class Day1201 : PuzzleBase
         return Numbers.Single(x => x.Value == charNumber).Key;
     }
 
-    public override string ExecutePartOne()
+    public override string PartOne()
     {
         var sum = 0;
         foreach (var line in InputLines)
@@ -105,7 +105,7 @@ public class Day1201 : PuzzleBase
         return sum.ToString();
     }
 
-    public override string ExecutePartTwo()
+    public override string PartTwo()
     {
         var sum = 0;
         foreach (var line in InputLines)

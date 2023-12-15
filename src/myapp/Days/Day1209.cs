@@ -6,7 +6,7 @@ public class Day1209 : PuzzleBase
         Date = new DateOnly(2023, 12, 9);
     }
 
-    public override string ExecutePartOne()
+    public override string PartOne()
     {
         long sum = 0;
         foreach (var line in InputLines)
@@ -74,7 +74,7 @@ public class Day1209 : PuzzleBase
         }
         return lastFirst;
     }
-    public override string ExecutePartTwo()
+    public override string PartTwo()
     {
         long sum = 0;
         foreach (var line in InputLines)

@@ -6,7 +6,7 @@ public class Day1212 : PuzzleBase
         Date = new DateOnly(2023, 12, 12);
     }
 
-    public override string ExecutePartOne()
+    public override string PartOne()
     {
         var infos = new List<SpringInfo>();
         foreach (var line in InputLines)
@@ -73,7 +73,7 @@ public class Day1212 : PuzzleBase
         return infos.Sum(x => x.Arranges).ToString();
     }
 
-    public override string ExecutePartTwo()
+    public override string PartTwo()
     {
         var infos = new List<SpringInfo>();
         foreach (var line in InputLines)

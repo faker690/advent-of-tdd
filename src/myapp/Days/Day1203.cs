@@ -71,7 +71,7 @@ public class Day1203 : PuzzleBase
         return data.ToList().Any(isSymbol);
     }
 
-    public override string ExecutePartOne()
+    public override string PartOne()
     {
         var engineInfos = getEngineInfos();
 
@@ -93,7 +93,7 @@ public class Day1203 : PuzzleBase
         return sum.ToString();
     }
 
-    public override string ExecutePartTwo()
+    public override string PartTwo()
     {
         var symbolInfos = getSymbolInfos();
         var engineInfos = getEngineInfos();
